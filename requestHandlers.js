@@ -33,12 +33,12 @@ function saveComic(req, resp, postData) {
   var issueNo = querystring.parse(postData).issueNo;
   var pub = querystring.parse(postData).publisher;
   console.log(cName + ":" + wName + ":" + issueNo + ":" + pub);
-  parseApp.insert('Comic', {comicName:cName, Writer:wName, publisher:pub, issue:issueNo},
+  parseApp.insert('Comics', {comicName:cName, writer:wName, publisher:pub, issue:issueNo},
     function(err, response) {
       console.log(response);
     });
   resp.writeHead(200, {"Content-Type": "text/plain"});
-  resp.write("Comic saved" + querystring.parse(postData).comicName);
+  resp.write("Comic saved " + querystring.parse(postData).comicName);
   resp.end();
 }
 

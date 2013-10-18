@@ -3,6 +3,7 @@ var url = require('url');
 
 function start(route, handle) {
   "use strict";
+  
   function onRequest(req, resp) {
     console.log("Request received");
     var pathname = url.parse(req.url).pathname;
