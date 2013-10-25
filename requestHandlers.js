@@ -36,6 +36,7 @@ function saveComic(req, resp, postData) {
   parseApp.insert('Comics', {comicName:cName, writer:wName, publisher:pub, issue:issueNo},
     function(err, response) {
       console.log(response);
+      console.log(err);
     });
   resp.writeHead(200, {"Content-Type": "text/plain"});
   resp.write("Comic saved " + querystring.parse(postData).comicName);
