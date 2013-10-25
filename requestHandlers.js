@@ -1,12 +1,12 @@
 var fs = require("fs");
 var request = require("request");
 var querystring = require("querystring");
-var Parse = require("parse-api").Parse;
+var Kaiseki = require('kaiseki');
 
 var APP_ID = 'uKoPYsEPCuxyfZT3M5lyTytsiyZij0RHCSY1VuZ4';
-var MASTER_KEY = '3Vszj1HJQo488dfXmDZi32fKFczwn7dqrjoyRydQ';
+var REST_API_KEY = 'UJtTnhM2AKYmQTgAYtTeRpbJs9kScfLSY9BJKgsC';
 
-var parseApp = new Parse(APP_ID, MASTER_KEY);
+var kaiseki = new Kaiseki(APP_ID, REST_API_KEY);
 
 function start(req, resp, postData) {
     "use strict";
@@ -27,15 +27,23 @@ function start(req, resp, postData) {
 
 function saveComic(req, resp, postData) {
   console.log("Request handler for 'saveComic' was called.");
-  console.log("PData: " + postData);
   var cName = querystring.parse(postData).comicName;
   var wName = querystring.parse(postData).writerName;
-  var issueNo = querystring.parse(postData).issueNo;
+  var issueNo = parseInt(querystring.parse(postData).issueNo);
   var pub = querystring.parse(postData).publisher;
+  console.log("PData: " + postData);
+  var comic = {
+    comicName: cName,
+    writer: wName,
+    issue: issueNo,
+    publisher: pub
+  }
+  
   console.log(cName + ":" + wName + ":" + issueNo + ":" + pub);
-  parseApp.insert('Comics', {comicName:cName, writer:wName, publisher:pub, issue:issueNo},
-    function(err, response) {
-      console.log(response);
+  kaiseki.createObject('Comics', comic,
+    function(err, response, body, success) {
+      console.log('object created = ', body);
+      console.log('object id = ', body.objectId);
       console.log(err);
     });
   resp.writeHead(200, {"Content-Type": "text/plain"});
