@@ -10,6 +10,10 @@ var kaiseki = new Kaiseki(APP_ID, REST_API_KEY);
 
 function start(req, resp, postData) {
     "use strict";
+    kaiseki.sendAnalyticsEvent('AppOpened', {}, function(err, response, body, success) {
+      });
+    kaiseki.sendAnalyticsEvent('search', {'testdata':'12'}, function(err, response, body, success) {
+      });
     console.log("req handler 'start' was called.");
 
     if (req.method === 'GET') {
