@@ -1,4 +1,4 @@
-### ARCHIVED
+# ARCHIVED
 
 # README for a newly created project.
 
